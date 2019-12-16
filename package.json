@@ -1,32 +1,42 @@
 {
-  "name": "static-html-server",
-  "version": "0.1.1",
-  "description": "Static web server",
-  "homepage": "https://github.com/rdilweb/static-html-server",
-  "bin": {
-    "static-html-server": "./static-html-server.js"
-  },
-  "keywords": [
-    "server",
-    "local",
-    "static",
-    "web",
-    "duyetdev"
-  ],
-  "dependencies": {
-    "mime": "~1.4.1",
-    "minimist": "^0.2.0"
-  },
-  "license": "MIT",
-  "author": "Van-Duyet Le <lvduit08@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/rdilweb/static-html-server/issues"
-  },
-  "main": "static-html-server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "devDependencies": {
-    "prettier": "^1.19.1"
-  }
+    "name": "static-html-server",
+    "version": "1.0.0",
+    "description": "Static web server",
+    "homepage": "https://github.com/rdilweb/static-html-server",
+    "bin": {
+        "static-html-server": "./static-html-server.js"
+    },
+    "keywords": [
+        "server",
+        "local",
+        "static",
+        "web",
+        "duyetdev",
+        "rdil",
+        "rdilweb"
+    ],
+    "dependencies": {
+        "mime": "~1.4.1",
+        "minimist": "^0.2.0"
+    },
+    "license": "MIT",
+    "author": "Van-Duyet Le <lvduit08@gmail.com> & Reece Dunham",
+    "bugs": {
+        "url": "https://github.com/rdilweb/static-html-server/issues"
+    },
+    "main": "static-html-server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prettier": "prettier --write source/**.{js,ts} && prettier --write package.json",
+        "build": ""
+    },
+    "devDependencies": {
+        "@babel/core": "^7.7.5",
+        "@babel/preset-env": "^7.7.6",
+        "prettier": "^1.19.1"
+    },
+    "prettier": {
+        "semi": false,
+        "tabWidth": 4
+    }
 }

@@ -1,0 +1,13 @@
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+pids
+logs
+results
+src_prod
+
+node_modules
