@@ -18,16 +18,15 @@
     "dependencies": {
         "chalk": "^3.0.0",
         "mime": "~1.4.1",
-        "minimist": "^0.2.0"
+        "node-emoji": "^1.10.0"
     },
     "license": "MIT",
-    "author": "Van-Duyet Le <lvduit08@gmail.com> & Reece Dunham",
+    "author": "Uniauthored",
     "bugs": {
         "url": "https://github.com/rdilweb/static-html-server/issues"
     },
     "main": "src/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "prettier": "prettier --write source/**.{js,ts} && prettier --write package.json",
         "build": "babel source -d src"
     },
