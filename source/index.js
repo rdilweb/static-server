@@ -52,7 +52,9 @@ let server = createServer((req, res) => {
             } else if (stat.isDirectory()) {
                 handle(join(filePath, "index.html"))
             } else {
-                res.writeHead(200, { "Content-Type": lookup(extname(filePath)) })
+                res.writeHead(200, {
+                    "Content-Type": lookup(extname(filePath))
+                })
                 createReadStream(filePath).pipe(res)
             }
         })
@@ -63,5 +65,7 @@ server.listen(port)
 
 console.log(chalk`
     Using working directory ${root}.
-    {magenta {bold Server running at http://localhost:${port}/ ${emojify(":star:")}}}
+    {magenta {bold Server running at http://localhost:${port}/ ${emojify(
+    ":star:"
+)}}}
 `)
