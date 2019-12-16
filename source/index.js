@@ -5,14 +5,25 @@ import { join, extname } from "path"
 import { stat as _stat, createReadStream } from "fs"
 import { lookup } from "mime"
 import mnm from "minimist"
+import chalk from "chalk"
 
-var argv = mnm(process.argv.slice(2)),
-    port = argv.p || 7788,
-    root = argv.r || process.cwd(),
-    fallbackPath = argv.f
+/**
+ * The arguments passed.
+ */
+let argv = mnm(process.argv.slice(2))
 
-if (argv.h) {
-    console.log("\nNODE STATIC SERVER")
+let port = argv.p || 3000
+let root = argv.r || process.cwd()
+let fallbackPath = argv.f
+
+if (argv.help) {
+    console.log(
+        chalk.red(
+            chalk.underline(
+                "Node Static Server"
+            )
+        )
+    )
     console.log(
         "   Simple static web server.\
     \n   Author: Van-Duyet Le (me@duyetdev.com). \
@@ -24,7 +35,7 @@ if (argv.h) {
     )
     console.log(
         "\nArguments (all are optional):\
-    \n    - p: [Number] port number, default to 8000\
+    \n    - p: [Number] port number, default to 3000\
     \n    - r: [String] root folder, default to working directory\
     \n    - f: [String] fallback path when page not found, default to not falling back and send 404\n\n"
     )
@@ -36,16 +47,18 @@ if (argv.h) {
     process.exit(1)
 }
 
-if (fallbackPath) fallbackPath = join(root, fallbackPath)
+if (fallbackPath) {
+    fallbackPath = join(root, fallbackPath)
+}
 
-createServer(function requestHandler(req, res) {
-    var uriPath = parse(req.url).pathname,
-        filePath = join(root, unescape(uriPath))
+createServer((req, res) => {
+    let uriPath = parse(req.url).pathname
+    let filePath = join(root, unescape(uriPath))
 
     console.log("Serving " + uriPath)
     handle(filePath)
 
-    function handle(filePath, fallingback) {
+    let handle = (filePath, fallingback) => {
         _stat(filePath, function(err, stat) {
             if (err) {
                 if (err.code == "ENOENT") {
@@ -58,8 +71,7 @@ createServer(function requestHandler(req, res) {
             } else if (stat.isDirectory()) {
                 handle(join(filePath, "index.html"))
             } else {
-                var contentType = lookup(extname(filePath))
-                res.writeHead(200, { "Content-Type": contentType })
+                res.writeHead(200, { "Content-Type": lookup(extname(filePath)) })
                 createReadStream(filePath).pipe(res)
             }
         })

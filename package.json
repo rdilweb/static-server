@@ -4,7 +4,7 @@
     "description": "Static web server",
     "homepage": "https://github.com/rdilweb/static-html-server",
     "bin": {
-        "static-html-server": "./static-html-server.js"
+        "static-html-server": "./src/index.js"
     },
     "keywords": [
         "server",
@@ -16,6 +16,7 @@
         "rdilweb"
     ],
     "dependencies": {
+        "chalk": "^3.0.0",
         "mime": "~1.4.1",
         "minimist": "^0.2.0"
     },
@@ -24,15 +25,18 @@
     "bugs": {
         "url": "https://github.com/rdilweb/static-html-server/issues"
     },
-    "main": "static-html-server.js",
+    "main": "src/index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prettier": "prettier --write source/**.{js,ts} && prettier --write package.json",
-        "build": ""
+        "build": "babel source -d src"
     },
     "devDependencies": {
+        "@babel/cli": "^7.7.5",
         "@babel/core": "^7.7.5",
         "@babel/preset-env": "^7.7.6",
+        "@types/mime": "^2.0.1",
+        "@types/node": "^12.12.18",
         "prettier": "^1.19.1"
     },
     "prettier": {
