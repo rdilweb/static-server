@@ -1,0 +1,32 @@
+{
+  "name": "static-html-server",
+  "version": "0.1.1",
+  "description": "Static web server",
+  "homepage": "https://github.com/rdilweb/static-html-server",
+  "bin": {
+    "static-html-server": "./static-html-server.js"
+  },
+  "keywords": [
+    "server",
+    "local",
+    "static",
+    "web",
+    "duyetdev"
+  ],
+  "dependencies": {
+    "mime": "~1.2.11",
+    "minimist": "^0.2.0"
+  },
+  "license": "MIT",
+  "author": "Van-Duyet Le <lvduit08@gmail.com>",
+  "bugs": {
+    "url": "https://github.com/rdilweb/static-html-server/issues"
+  },
+  "main": "static-html-server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "prettier": "^1.19.1"
+  }
+}
