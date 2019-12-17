@@ -8,7 +8,7 @@
 pids
 logs
 results
-src_prod
+out
 
 node_modules
 src

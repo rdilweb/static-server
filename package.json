@@ -4,7 +4,7 @@
     "description": "Static web server",
     "homepage": "https://github.com/rdilweb/static-html-server",
     "bin": {
-        "static-html-server": "./src/index.js"
+        "static-server": "./src/index.js"
     },
     "keywords": [
         "server",
@@ -17,7 +17,7 @@
     ],
     "dependencies": {
         "chalk": "^3.0.0",
-        "mime": "~1.4.1",
+        "mime-types": "^2.1.25",
         "node-emoji": "^1.10.0"
     },
     "files": [
@@ -38,8 +38,9 @@
         "@babel/cli": "^7.7.5",
         "@babel/core": "^7.7.5",
         "@babel/preset-env": "^7.7.6",
-        "@types/mime": "^2.0.1",
+        "@types/mime-types": "^2.1.0",
         "@types/node": "^12.12.18",
+        "@types/node-emoji": "^1.8.1",
         "prettier": "^1.19.1"
     },
     "prettier": {
