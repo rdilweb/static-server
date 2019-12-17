@@ -3,7 +3,7 @@
 *.dat
 *.out
 *.pid
-*.gz
+*.tgz
 
 pids
 logs

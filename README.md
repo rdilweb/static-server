@@ -1,4 +1,4 @@
-# Static HTML Server
+# Static Server
 
 Simple static web server.
 
@@ -11,14 +11,14 @@ npm install static-html-server -g
 ## Usage
 
 ```
-static-html-server -p [port] -r [root folder] -f [fallback path if not found]
+static-html-server --port [port] -r [root folder] -f [fallback path if not found]
 ```
 
 Arguments (all are optional):
 
-* `p`: [`Number`] port number, default to 8000
-* `r`: [`String`] root folder, default to working directory
-* `f`: [`String`] fallback path when page not found, default to not falling back and send 404
+* `--port`: [`Number`] port number, defaults to 3000
+* `r`: [`String`] root folder, defaults to working directory
+* `f`: [`String`] fallback path when page not found, defaults to not falling back and send 404
 
 For example:
 

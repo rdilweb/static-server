@@ -1,13 +1,12 @@
 #!/usr/bin/env node
 
+import { join } from "path"
 import { emojify } from "node-emoji"
 import { createServer } from "http"
 import { parse } from "url"
-import { join, extname } from "path"
-import { stat as _stat, createReadStream } from "fs"
-import { lookup } from "mime"
 import chalk from "chalk"
 import { help } from "./utilities"
+import handle from "./serverHandling"
 
 /**
  * The arguments passed.
@@ -17,10 +16,12 @@ let port = 3000
 let root = process.cwd()
 let fallbackPath = undefined
 
+// basic argument parsing
 argv.forEach(arg => {
     if (arg == "--help") {
         help()
     } else if (arg.startsWith("--port")) {
+        // set the port to the next argument
         port = parseInt(argv[argv.indexOf(arg) + 1])
     }
 })
@@ -34,38 +35,13 @@ let server = createServer((req, res) => {
     let filePath = join(root, unescape(uriPath))
 
     console.log("Serving " + uriPath)
-    handle(filePath)
-
-    let handle = (filePath, fallingback) => {
-        _stat(filePath, function(err, stat) {
-            if (err) {
-                if (err.code == "ENOENT") {
-                    if (!fallingback && fallbackPath) {
-                        return handle(fallbackPath, true)
-                    }
-                    res.statusCode = 404
-                } else {
-                    res.statusCode = 500
-                }
-                res.end()
-                console.error(err)
-            } else if (stat.isDirectory()) {
-                handle(join(filePath, "index.html"))
-            } else {
-                res.writeHead(200, {
-                    "Content-Type": lookup(extname(filePath))
-                })
-                createReadStream(filePath).pipe(res)
-            }
-        })
-    }
+    handle(filePath, res)
 })
 
 server.listen(port)
 
+const star = emojify(":star:")
 console.log(chalk`
     Using working directory ${root}.
-    {magenta {bold Server running at http://localhost:${port}/ ${emojify(
-    ":star:"
-)}}}
+    {magenta {bold Server running at http://localhost:${port}/ ${star}}}
 `)

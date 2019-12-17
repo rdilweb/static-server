@@ -1,5 +1,5 @@
 {
-    "name": "static-html-server",
+    "name": "static-server-rdil",
     "version": "1.0.0",
     "description": "Static web server",
     "homepage": "https://github.com/rdilweb/static-html-server",
@@ -20,6 +20,9 @@
         "mime": "~1.4.1",
         "node-emoji": "^1.10.0"
     },
+    "files": [
+        "src"
+    ],
     "license": "MIT",
     "author": "Uniauthored",
     "bugs": {
@@ -28,7 +31,8 @@
     "main": "src/index.js",
     "scripts": {
         "prettier": "prettier --write source/**.{js,ts} && prettier --write package.json",
-        "build": "babel source -d src"
+        "build": "babel source -d src",
+        "dev": "yarn build && node src/index.js"
     },
     "devDependencies": {
         "@babel/cli": "^7.7.5",
