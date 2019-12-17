@@ -1,4 +1,5 @@
 import chalk from "chalk"
+import { emojify } from "node-emoji"
 
 /**
  * Print help info and exit.
@@ -13,12 +14,16 @@ static-server [--port <ID>] [--root <DIRECTORY>]
 }
 
 /**
- * Get the next item in the array.
- * 
- * @param {Array<Any>} array
- * @param {*} currentItem
- * @returns The next item.
+ * Get the next item in the passed array.
+ *
+ * @param {Array<Any>} array The array.
+ * @param {Any} currentItem The item before the targeted item.
  */
 export let getNextItemInArray = (array, currentItem) => {
     return array[array.indexOf(currentItem) + 1]
 }
+
+/**
+ * The star emoji.
+ */
+export const star = emojify(":star:")

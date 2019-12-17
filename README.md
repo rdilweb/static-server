@@ -4,37 +4,21 @@ Simple static web server.
 
 ## Installing
 
-```
-npm install static-html-server -g
-```
+todo
 
 ## Usage
 
 ```
-static-html-server --port [port] -r [root folder] -f [fallback path if not found]
+static-server [--port <PORT>] [--root <DIRECTORY>]
 ```
 
 Arguments (all are optional):
 
 * `--port`: [`Number`] port number, defaults to 3000
-* `r`: [`String`] root folder, defaults to working directory
-* `f`: [`String`] fallback path when page not found, defaults to not falling back and send 404
+* `--root`: [`String`] root folder, defaults to working directory
 
 For example:
 
 ```bash
-$ static-html-server -p 8899 -r ./ -f index.html
-Server running at http://localhost:8899/ [root: ./, fallback: index.html]
+$ static-server --port 8899 --root ./
 ```
-
-## License
-
-MIT License
-
-Copyright (c) 2015 Van-Duyet Le
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

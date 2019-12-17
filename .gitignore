@@ -1,7 +1,4 @@
 *.log
-*.csv
-*.dat
-*.out
 *.pid
 *.tgz
 

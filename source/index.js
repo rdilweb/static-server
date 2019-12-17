@@ -1,22 +1,30 @@
 #!/usr/bin/env node
 
 import { join } from "path"
-import { emojify } from "node-emoji"
 import { createServer } from "http"
 import { parse } from "url"
 import chalk from "chalk"
-import { help, getNextItemInArray } from "./utilities"
+import { help, getNextItemInArray, star } from "./utilities"
 import handle from "./serverHandling"
 
 /**
- * The arguments passed.
+ * The arguments passed via command line.
  */
 const argv = process.argv
+
+/**
+ * The port that the server will run on.
+ * @type number
+ */
 let port = 3000
+
+/**
+ * The root directory the server will serve.
+ */
 let root = process.cwd()
 
-// basic argument parsing
 argv.forEach(arg => {
+    // basic argument parsing
     if (arg == "--help") {
         help()
     } else if (arg.startsWith("--port")) {
@@ -40,7 +48,6 @@ let server = createServer((request, response) => {
 
 server.listen(port)
 
-const star = emojify(":star:")
 console.log(chalk`
     Using working directory ${root}.
     {magenta {bold Server running at http://localhost:${port}/ ${star}}}

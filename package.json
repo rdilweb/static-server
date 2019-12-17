@@ -11,7 +11,6 @@
         "local",
         "static",
         "web",
-        "duyetdev",
         "rdil",
         "rdilweb"
     ],
@@ -24,13 +23,13 @@
         "src"
     ],
     "license": "MIT",
-    "author": "Uniauthored",
+    "author": "Reece Dunham <me@rdil.rocks>",
     "bugs": {
         "url": "https://github.com/rdilweb/static-html-server/issues"
     },
     "main": "src/index.js",
     "scripts": {
-        "prettier": "prettier --write source/**.{js,ts} && prettier --write package.json",
+        "prettier": "prettier --write **/**.{js,json}",
         "build": "babel source -d src",
         "dev": "yarn build && node src/index.js"
     },

@@ -8,32 +8,33 @@ import chalk from "chalk"
  * Handle file request.
  *
  * @param {string} filePath The path requested.
- * @param {http.IncomingMessage} res The response object.
+ * @param {http.IncomingMessage} response The response object.
+ * @default
  */
-export default function handle(filePath, res) {
+export default function handle(filePath, response) {
     try {
         // try to look up file
         _stat(filePath, (err, stat) => {
             if (err) {
-                res.statusCode = (err.code == "ENOENT" ? 404 : 500)
-                res.end()
+                response.statusCode = err.code == "ENOENT" ? 404 : 500
+                response.end()
             } else if (stat.isDirectory()) {
                 // if the requested file is a directory, try
                 // to get the 'index.html' from it
-                handle(join(filePath, "index.html"), res)
+                handle(join(filePath, "index.html"), response)
             } else {
                 // phew, actual file
                 let mimetype = lookup(extname(filePath))
-                res.writeHead(200, {
+                response.writeHead(200, {
                     "Content-Type": mimetype
                 })
-                createReadStream(filePath).pipe(res)
+                createReadStream(filePath).pipe(response)
             }
         })
     } catch (e) {
         // server errors will be sent here
         console.log(chalk`
-{bgGray Internal Server Error Detected!: ${e}}
+{bgGray Internal Server Error: ${e}}
         `)
     }
 }
