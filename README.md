@@ -15,7 +15,7 @@ npm i -g static-server-rdil
 Run this in a terminal:
 
 ```bash
-static-server [--port <PORT>] [--root <DIRECTORY>]
+static-server [OPTIONS HERE]
 ```
 
 Or, for more portability, use this command (with this method you won't need to install it like described above):

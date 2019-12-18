@@ -14,7 +14,6 @@ const argv = process.argv
 
 /**
  * The port that the server will run on.
- * @type number
  */
 let port = 3000
 
