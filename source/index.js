@@ -23,6 +23,11 @@ let port = 3000
  */
 let root = process.cwd()
 
+/**
+ * If requests should be logged in the console.
+ */
+let logRequests = true
+
 argv.forEach(arg => {
     // basic argument parsing
     if (arg == "--help") {
@@ -32,6 +37,8 @@ argv.forEach(arg => {
         port = parseInt(getNextItemInArray(argv, arg))
     } else if (arg.startsWith("--root")) {
         root = getNextItemInArray(argv, arg)
+    } else if (arg.startsWith("--no-request-logging")) {
+        logRequests = false
     }
 })
 
@@ -42,7 +49,10 @@ let server = createServer((request, response) => {
     let uriPath = parse(request.url).pathname
     let filePath = join(root, unescape(uriPath))
 
-    console.log("Serving " + uriPath)
+    if (logRequests) {
+        console.log("Serving " + uriPath)
+    }
+
     handle(filePath, response)
 })
 
