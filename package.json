@@ -1,8 +1,8 @@
 {
     "name": "static-server-rdil",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "description": "Static web server",
-    "homepage": "https://github.com/rdilweb/static-html-server",
+    "homepage": "https://github.com/rdilweb/static-server",
     "bin": {
         "static-server": "./src/index.js"
     },
@@ -25,7 +25,7 @@
     "license": "MIT",
     "author": "Reece Dunham <me@rdil.rocks>",
     "bugs": {
-        "url": "https://github.com/rdilweb/static-html-server/issues"
+        "url": "https://github.com/rdilweb/static-server/issues"
     },
     "main": "src/index.js",
     "scripts": {
