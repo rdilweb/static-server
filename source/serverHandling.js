@@ -9,9 +9,10 @@ import chalk from "chalk"
  *
  * @param {string} filePath The path requested.
  * @param {http.IncomingMessage} response The response object.
+ * @param {boolean} ignoreErrors
  * @default
  */
-export default function handle(filePath, response) {
+export default function handle(filePath, response, ignoreErrors) {
     try {
         // try to look up file
         _stat(filePath, (err, stat) => {
@@ -33,8 +34,10 @@ export default function handle(filePath, response) {
         })
     } catch (e) {
         // server errors will be sent here
-        console.log(chalk`
+        if (!ignoreErrors) {
+            console.log(chalk`
 {bgGray Internal Server Error: ${e}}
-        `)
+            `)
+        }
     }
 }

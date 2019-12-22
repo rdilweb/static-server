@@ -27,6 +27,11 @@ let root = process.cwd()
  */
 let logRequests = true
 
+/**
+ * If errors should be ignored.
+ */
+let ignoreErrors = false
+
 argv.forEach(arg => {
     // basic argument parsing
     if (arg == "--help") {
@@ -38,6 +43,8 @@ argv.forEach(arg => {
         root = getNextItemInArray(argv, arg)
     } else if (arg.startsWith("--no-request-logging")) {
         logRequests = false
+    } else if (arg.startsWith("--ignore-errors")) {
+        ignoreErrors = true
     }
 })
 
@@ -52,7 +59,7 @@ let server = createServer((request, response) => {
         console.log("Serving " + uriPath)
     }
 
-    handle(filePath, response)
+    handle(filePath, response, ignoreErrors)
 })
 
 server.listen(port)
