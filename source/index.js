@@ -4,7 +4,8 @@ import { join } from "path"
 import { createServer } from "http"
 import { parse } from "url"
 import chalk from "chalk"
-import { help, getNextItemInArray, star } from "./utilities"
+import { help, getNextItemInArray } from "./utilities"
+import { emojify } from "node-emoji"
 import handle from "./serverHandling"
 
 /**
@@ -32,6 +33,16 @@ let logRequests = true
  */
 let ignoreErrors = false
 
+/**
+ * If emojis should be logged to the console.
+ */
+let emojis = true
+
+/**
+ * Star emoji.
+ */
+const emote = emojis ? emojify(":star:") : "!"
+
 argv.forEach(arg => {
     // basic argument parsing
     if (arg == "--help") {
@@ -45,6 +56,8 @@ argv.forEach(arg => {
         logRequests = false
     } else if (arg.startsWith("--ignore-errors")) {
         ignoreErrors = true
+    } else if (arg.startsWith("--no-emojis")) {
+        emojis = false
     }
 })
 
@@ -66,5 +79,5 @@ server.listen(port)
 
 console.log(chalk`
     Using working directory ${root}.
-    {magenta {bold Server running at http://localhost:${port}/ ${star}}}
+    {magenta {bold Server running at http://localhost:${port}/ ${emote}}}
 `)

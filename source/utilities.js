@@ -1,14 +1,13 @@
 import chalk from "chalk"
-import { emojify } from "node-emoji"
 
 /**
  * Print help info and exit.
  */
 export let help = () => {
     console.log(chalk`
-        {red {underline {bold Node Static Web Server}}}
-Usage:
-static-server [--port <ID>] [--root <DIRECTORY>]
+{red {underline {bold Node Static Web Server}}}
+
+Please see {green https://docs.rdil.rocks/libraries/static-server-rdil/} for documentation!
     `)
     process.exit(0)
 }
@@ -22,8 +21,3 @@ static-server [--port <ID>] [--root <DIRECTORY>]
 export let getNextItemInArray = (array, currentItem) => {
     return array[array.indexOf(currentItem) + 1]
 }
-
-/**
- * The star emoji.
- */
-export const star = emojify(":star:")

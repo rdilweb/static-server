@@ -8,7 +8,7 @@ import chalk from "chalk"
  * Handle file request.
  *
  * @param {string} filePath The path requested.
- * @param {http.IncomingMessage} response The response object.
+ * @param {http.ServerResponse} response The response object.
  * @param {boolean} ignoreErrors
  * @default
  */
