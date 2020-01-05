@@ -39,6 +39,11 @@ let ignoreErrors = false
 let emojis = true
 
 /**
+ * If enhanced security headers should be set.
+ */
+let enhancedSecurity = false
+
+/**
  * Star emoji.
  */
 const emote = emojis ? emojify(":star:") : "!"
@@ -58,6 +63,8 @@ argv.forEach(arg => {
         ignoreErrors = true
     } else if (arg.startsWith("--no-emojis")) {
         emojis = false
+    } else if (arg.startsWith("--enhanced-security")) {
+        enhancedSecurity = true
     }
 })
 
@@ -72,7 +79,7 @@ let server = createServer((request, response) => {
         console.log("Serving " + uriPath)
     }
 
-    handle(filePath, response, ignoreErrors)
+    handle(filePath, response, ignoreErrors, enhancedSecurity)
 })
 
 server.listen(port)
