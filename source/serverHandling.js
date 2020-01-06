@@ -14,7 +14,12 @@ import getHeaders from "./headers"
  * @param {boolean} enhancedSecurity Should enhanced security be enabled?
  * @default
  */
-export default function handle(filePath, response, ignoreErrors, enhancedSecurity) {
+export default function handle(
+    filePath,
+    response,
+    ignoreErrors,
+    enhancedSecurity
+) {
     try {
         // try to look up file
         _stat(filePath, (err, stat) => {
@@ -24,14 +29,16 @@ export default function handle(filePath, response, ignoreErrors, enhancedSecurit
             } else if (stat.isDirectory()) {
                 // if the requested file is a directory, try
                 // to get the 'index.html' from it
-                handle(join(filePath, "index.html"), response, ignoreErrors, enhancedSecurity)
+                handle(
+                    join(filePath, "index.html"),
+                    response,
+                    ignoreErrors,
+                    enhancedSecurity
+                )
             } else {
                 // phew, actual file
                 let mimetype = lookup(extname(filePath))
-                response.writeHead(
-                    200,
-                    getHeaders(enhancedSecurity, mimetype)
-                )
+                response.writeHead(200, getHeaders(enhancedSecurity, mimetype))
                 createReadStream(filePath).pipe(response)
             }
         })
