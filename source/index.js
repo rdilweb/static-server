@@ -44,6 +44,11 @@ let emojis = true
 let enhancedSecurity = false
 
 /**
+ * If Markdown should be rendered (in HTML).
+ */
+let renderMarkdown = true
+
+/**
  * Star emoji.
  */
 const emote = emojis ? emojify(":star:") : "!"
@@ -57,14 +62,16 @@ argv.forEach(arg => {
         port = parseInt(getNextItemInArray(argv, arg))
     } else if (arg.startsWith("--root")) {
         root = getNextItemInArray(argv, arg)
-    } else if (arg.startsWith("--no-request-logging")) {
+    } else if (arg.startsWith("--no-request-logging") || arg.startsWith("-q")) {
         logRequests = false
-    } else if (arg.startsWith("--ignore-errors")) {
+    } else if (arg.startsWith("--ignore-errors") || arg.startsWith("-q")) {
         ignoreErrors = true
     } else if (arg.startsWith("--no-emojis")) {
         emojis = false
     } else if (arg.startsWith("--enhanced-security")) {
         enhancedSecurity = true
+    } else if (arg.startsWith("--no-render-markdown")) {
+        renderMarkdown = false
     }
 })
 
@@ -75,11 +82,9 @@ let server = createServer((request, response) => {
     let uriPath = parse(request.url).pathname
     let filePath = join(root, unescape(uriPath))
 
-    if (logRequests) {
-        console.log("Serving " + uriPath)
-    }
+    if (logRequests) console.log("Serving " + uriPath)
 
-    handle(filePath, response, ignoreErrors, enhancedSecurity)
+    handle(filePath, response, ignoreErrors, enhancedSecurity, renderMarkdown)
 })
 
 server.listen(port)

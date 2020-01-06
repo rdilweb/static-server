@@ -17,7 +17,8 @@
     "dependencies": {
         "chalk": "^3.0.0",
         "mime-types": "^2.1.26",
-        "node-emoji": "^1.10.0"
+        "node-emoji": "^1.10.0",
+        "showdown": "^1.9.1"
     },
     "files": [
         "src"
@@ -40,6 +41,7 @@
         "@types/mime-types": "^2.1.0",
         "@types/node": "^13.1.4",
         "@types/node-emoji": "^1.8.1",
+        "@types/showdown": "^1.9.3",
         "prettier": "^1.19.1"
     },
     "prettier": {
