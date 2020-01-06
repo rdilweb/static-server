@@ -16,7 +16,7 @@
     ],
     "dependencies": {
         "chalk": "^3.0.0",
-        "mime-types": "^2.1.25",
+        "mime-types": "^2.1.26",
         "node-emoji": "^1.10.0"
     },
     "files": [
