@@ -31,7 +31,10 @@ let render = htmlBody => `\
 </html>`
 
 let showdown = new Showdown.Converter({
-    strikethrough: true
+    strikethrough: true,
+    tasklists: true,
+    openLinksInNewWindow: true,
+    ghCompatibleHeaderId: true
 })
 
 /**
@@ -42,6 +45,6 @@ export default markdown => {
 
     readable.push(render(showdown.makeHtml(markdown.toString())))
 
-    readable.push(null)
+    readable.push(null) // end-of-stream
     return readable
 }

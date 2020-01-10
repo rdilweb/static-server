@@ -35,11 +35,11 @@
         "dev": "yarn build && node src/index.js"
     },
     "devDependencies": {
-        "@babel/cli": "^7.7.5",
-        "@babel/core": "^7.7.5",
-        "@babel/preset-env": "^7.7.6",
+        "@babel/cli": "^7.7.7",
+        "@babel/core": "^7.7.7",
+        "@babel/preset-env": "^7.7.7",
         "@types/mime-types": "^2.1.0",
-        "@types/node": "^13.1.4",
+        "@types/node": "^13.1.6",
         "@types/node-emoji": "^1.8.1",
         "@types/showdown": "^1.9.3",
         "prettier": "^1.19.1"

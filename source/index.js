@@ -57,21 +57,24 @@ argv.forEach(arg => {
     // basic argument parsing
     if (arg == "--help") {
         help()
-    } else if (arg.startsWith("--port")) {
+    } else if (arg == "--port") {
         // set the port to the next argument
         port = parseInt(getNextItemInArray(argv, arg))
     } else if (arg.startsWith("--root")) {
         root = getNextItemInArray(argv, arg)
-    } else if (arg.startsWith("--no-request-logging") || arg.startsWith("-q")) {
+    } else if (arg == "--no-request-logging") {
         logRequests = false
-    } else if (arg.startsWith("--ignore-errors") || arg.startsWith("-q")) {
+    } else if (arg == "--ignore-errors") {
         ignoreErrors = true
-    } else if (arg.startsWith("--no-emojis")) {
+    } else if (arg == "--no-emojis") {
         emojis = false
-    } else if (arg.startsWith("--enhanced-security")) {
+    } else if (arg == "--enhanced-security") {
         enhancedSecurity = true
-    } else if (arg.startsWith("--no-render-markdown")) {
+    } else if (arg == "--no-render-markdown") {
         renderMarkdown = false
+    } else if (arg == "-q" || arg == "--quiet") {
+        ignoreErrors = true
+        logRequests = false
     }
 })
 
