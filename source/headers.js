@@ -13,6 +13,8 @@ export default (enhancedSecurity, mimetype) => {
         : {
               "Content-Type": mimetype,
               "X-Content-Type-Options": "nosniff",
-              "X-Download-Options": "noopen"
+              "X-Download-Options": "noopen",
+              "X-DNS-Prefetch-Control": "off",
+              "Referrer-Policy": "no-referrer"
           }
 }

@@ -40,24 +40,12 @@ export default function handle(
                     renderMarkdown
                 )
             } else {
-                // phew, actual file
+                // actual file
                 const fileExtension = extname(filePath)
                 if (fileExtension !== ".md" || !renderMarkdown) {
-                    let mimetype = lookup(fileExtension)
-                    response.writeHead(
-                        200,
-                        getHeaders(enhancedSecurity, mimetype)
-                    )
-                    createReadStream(filePath).pipe(response)
+                    handleRealFile(response)
                 } else {
-                    response.writeHead(
-                        200,
-                        getHeaders(enhancedSecurity, "text/html")
-                    )
-                    readFile(filePath, (err, data) => {
-                        if (err) throw err
-                        markdown(data).pipe(response)
-                    })
+                    handleMarkdown(response)
                 }
             }
         })
@@ -69,4 +57,24 @@ export default function handle(
             `)
         }
     }
+}
+
+let handleMarkdown = response => {
+    response.writeHead(
+        200,
+        getHeaders(enhancedSecurity, "text/html")
+    )
+    readFile(filePath, (err, data) => {
+        if (err) throw err
+        markdown(data).pipe(response)
+    })
+}
+
+let handleRealFile = response => {
+    let mimetype = lookup(fileExtension)
+    response.writeHead(
+        200,
+        getHeaders(enhancedSecurity, mimetype)
+    )
+    createReadStream(filePath).pipe(response)
 }
