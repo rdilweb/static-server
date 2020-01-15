@@ -41,11 +41,16 @@ export default function handle(
                 )
             } else {
                 // actual file
-                const fileExtension = extname(filePath)
+                let fileExtension = extname(filePath)
                 if (fileExtension !== ".md" || !renderMarkdown) {
-                    handleRealFile(response)
+                    handleRealFile(
+                        response,
+                        fileExtension,
+                        enhancedSecurity,
+                        filePath
+                    )
                 } else {
-                    handleMarkdown(response)
+                    handleMarkdown(response, enhancedSecurity, filePath)
                 }
             }
         })
@@ -59,22 +64,27 @@ export default function handle(
     }
 }
 
-let handleMarkdown = response => {
-    response.writeHead(
-        200,
-        getHeaders(enhancedSecurity, "text/html")
-    )
+/**
+ * @param {http.ServerResponse} response
+ * @param {boolean} enhancedSecurity
+ * @param {string} filePath
+ */
+let handleMarkdown = (response, enhancedSecurity, filePath) => {
+    response.writeHead(200, getHeaders(enhancedSecurity, "text/html"))
     readFile(filePath, (err, data) => {
         if (err) throw err
         markdown(data).pipe(response)
     })
 }
 
-let handleRealFile = response => {
+/**
+ * @param {http.ServerResponse} response
+ * @param {string} fileExtension
+ * @param {boolean} enhancedSecurity
+ * @param {string} filePath
+ */
+let handleRealFile = (response, fileExtension, enhancedSecurity, filePath) => {
     let mimetype = lookup(fileExtension)
-    response.writeHead(
-        200,
-        getHeaders(enhancedSecurity, mimetype)
-    )
+    response.writeHead(200, getHeaders(enhancedSecurity, mimetype))
     createReadStream(filePath).pipe(response)
 }
