@@ -35,7 +35,7 @@
         "dev": "yarn build && node src/index.js"
     },
     "devDependencies": {
-        "@babel/cli": "^7.8.3",
+        "@babel/cli": "^7.8.4",
         "@babel/core": "^7.8.3",
         "@babel/preset-env": "^7.8.3",
         "@types/mime-types": "^2.1.0",
