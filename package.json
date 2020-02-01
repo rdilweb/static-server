@@ -39,7 +39,7 @@
         "@babel/core": "^7.8.3",
         "@babel/preset-env": "^7.8.3",
         "@types/mime-types": "^2.1.0",
-        "@types/node": "^13.5.3",
+        "@types/node": "^13.7.0",
         "@types/node-emoji": "^1.8.1",
         "@types/showdown": "^1.9.3",
         "prettier": "^1.19.1"
