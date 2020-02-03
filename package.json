@@ -36,8 +36,8 @@
     },
     "devDependencies": {
         "@babel/cli": "^7.8.4",
-        "@babel/core": "^7.8.3",
-        "@babel/preset-env": "^7.8.3",
+        "@babel/core": "^7.8.4",
+        "@babel/preset-env": "^7.8.4",
         "@types/mime-types": "^2.1.0",
         "@types/node": "^13.7.0",
         "@types/node-emoji": "^1.8.1",
