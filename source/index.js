@@ -10,16 +10,23 @@ import handle from "./serverHandling"
 
 /**
  * The arguments passed via command line.
+ * 
+ * @constant
+ * @readonly
  */
 const argv = process.argv
 
 /**
  * The port that the server will run on.
+ * 
+ * @default 3000
  */
 let port = 3000
 
 /**
  * The root directory the server will serve.
+ * 
+ * @default process.cwd
  */
 let root = process.cwd()
 
@@ -30,11 +37,15 @@ let logRequests = true
 
 /**
  * If errors should be ignored.
+ * 
+ * @default false
  */
 let ignoreErrors = false
 
 /**
  * If emojis should be logged to the console.
+ * 
+ * @default true
  */
 let emojis = true
 
@@ -53,8 +64,10 @@ let renderMarkdown = true
  */
 const emote = emojis ? emojify(":star:") : "!"
 
+/**
+ * Manual argument parsing.
+ */
 argv.forEach(arg => {
-    // basic argument parsing
     if (arg == "--help") {
         help()
     } else if (arg == "--port") {

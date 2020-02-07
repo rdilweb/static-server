@@ -17,6 +17,8 @@ Please see {green https://docs.rdil.rocks/libraries/static-server-rdil/} for doc
  *
  * @param {Array<Any>} array The array.
  * @param {Any} currentItem The item before the targeted item.
+ * 
+ * @returns The next item in the array
  */
 export let getNextItemInArray = (array, currentItem) => {
     return array[array.indexOf(currentItem) + 1]

@@ -1,10 +1,10 @@
 {
     "name": "static-server-rdil",
-    "version": "1.7.0",
+    "version": "1.8.0",
     "description": "Static web server",
     "homepage": "https://github.com/rdilweb/static-server",
     "bin": {
-        "static-server": "./src/index.js"
+        "static-server-rdil": "./src/index.js"
     },
     "keywords": [
         "server",

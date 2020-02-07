@@ -7,7 +7,7 @@ import getHeaders from "./headers"
 import markdown from "./markdownRendering"
 
 /**
- * Handle file request.
+ * Handle general request.
  *
  * @param {string} filePath The path requested.
  * @param {http.ServerResponse} response The response object.
@@ -59,12 +59,19 @@ export default function handle(
         if (!ignoreErrors) {
             console.log(chalk`
 {bgGray Internal Server Error: ${e}}
-            `)
+`
+            )
         }
     }
 }
 
 /**
+ * Handle Markdown request.
+ * This will be called by the handle function,
+ * with all needed context.
+ * 
+ * @see handle
+ * 
  * @param {http.ServerResponse} response
  * @param {boolean} enhancedSecurity
  * @param {string} filePath
@@ -78,6 +85,12 @@ let handleMarkdown = (response, enhancedSecurity, filePath) => {
 }
 
 /**
+ * Handle a request for a real, existing file.
+ * This will be called by the handle function,
+ * with all the needed context.
+ * 
+ * @see handle
+ * 
  * @param {http.ServerResponse} response
  * @param {string} fileExtension
  * @param {boolean} enhancedSecurity
