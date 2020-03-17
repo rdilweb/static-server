@@ -1,7 +1,10 @@
 import { lookup } from "mime-types"
 import { join, extname } from "path"
 import { stat as _stat, createReadStream, readFile } from "fs"
+/* eslint-disable */
+// we need this for IDEs to enable intellisense for class members
 import http from "http"
+/* eslint-enable */
 import chalk from "chalk"
 import getHeaders from "./headers"
 import markdown from "./markdownRendering"
