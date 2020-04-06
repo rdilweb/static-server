@@ -15,7 +15,7 @@
         "rdilweb"
     ],
     "dependencies": {
-        "chalk": "^3.0.0",
+        "chalk": "^4.0.0",
         "mime-types": "^2.1.26",
         "node-emoji": "^1.10.0",
         "showdown": "^1.9.1"
