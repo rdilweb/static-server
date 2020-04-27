@@ -16,7 +16,7 @@
     ],
     "dependencies": {
         "chalk": "^4.0.0",
-        "mime-types": "^2.1.26",
+        "mime-types": "^2.1.27",
         "node-emoji": "^1.10.0",
         "showdown": "^1.9.1"
     },
