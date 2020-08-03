@@ -17,7 +17,6 @@ import markdown from "./markdownRendering"
  * @param {boolean} ignoreErrors
  * @param {boolean} enhancedSecurity Should enhanced security be enabled?
  * @param {boolean} renderMarkdown Should Markdown be rendered with HTML?
- * @default
  */
 export default function handle(
     filePath,

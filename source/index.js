@@ -4,29 +4,12 @@ import { join } from "path"
 import { createServer } from "http"
 import { parse } from "url"
 import chalk from "chalk"
-import { help, getNextItemInArray } from "./utilities"
 import { emojify } from "node-emoji"
 import handle from "./serverHandling"
-
-/**
- * The arguments passed via command line.
- * 
- * @constant
- * @readonly
- */
-const argv = process.argv
-
-/**
- * The port that the server will run on.
- * 
- * @default 3000
- */
-let port = 3000
+import { program } from "commander"
 
 /**
  * The root directory the server will serve.
- * 
- * @default process.cwd
  */
 let root = process.cwd()
 
@@ -37,17 +20,8 @@ let logRequests = true
 
 /**
  * If errors should be ignored.
- * 
- * @default false
  */
 let ignoreErrors = false
-
-/**
- * If emojis should be logged to the console.
- * 
- * @default true
- */
-let emojis = true
 
 /**
  * If enhanced security headers should be set.
@@ -59,37 +33,38 @@ let enhancedSecurity = false
  */
 let renderMarkdown = true
 
-/**
- * Star emoji.
- */
-const emote = emojis ? emojify(":star:") : "!"
+program.name("static-server-rdil")
+
+program
+  .option("--port <number>", "the port to use", 3000)
+  .option("--root <string>", "the root path of the file tree to serve")
+  .option("--enhanced-security", "if enhanced security should be used")
+  .option("--ignore-errors", "if file not found errors should be ignored")
+  .option("--no-request-logging", "if requests to specific resources should be silenced")
+  .option("--no-render-markdown", "don't render markdown files as HTML")
+
+program.parse(process.argv)
 
 /**
- * Manual argument parsing.
+ * The port that the server will run on.
  */
-argv.forEach(arg => {
-    if (arg == "--help") {
-        help()
-    } else if (arg == "--port") {
-        // set the port to the next argument
-        port = parseInt(getNextItemInArray(argv, arg))
-    } else if (arg.startsWith("--root")) {
-        root = getNextItemInArray(argv, arg)
-    } else if (arg == "--no-request-logging") {
-        logRequests = false
-    } else if (arg == "--ignore-errors") {
-        ignoreErrors = true
-    } else if (arg == "--no-emojis") {
-        emojis = false
-    } else if (arg == "--enhanced-security") {
-        enhancedSecurity = true
-    } else if (arg == "--no-render-markdown") {
-        renderMarkdown = false
-    } else if (arg == "-q" || arg == "--quiet") {
-        ignoreErrors = true
-        logRequests = false
-    }
-})
+let port = program.port
+
+if (program.root) {
+    root = program.root
+}
+if (program.noRenderMarkdown) {
+    renderMarkdown = false
+}
+if (program.enhancedSecurity) {
+    enhancedSecurity = true
+}
+if (program.noRequestLogging) {
+    logRequests = false
+}
+if (program.ignoreErrors) {
+    ignoreErrors = true
+}
 
 /**
  * The server object.
@@ -98,7 +73,9 @@ let server = createServer((request, response) => {
     let uriPath = parse(request.url).pathname
     let filePath = join(root, unescape(uriPath))
 
-    if (logRequests) console.log("Serving " + uriPath)
+    if (logRequests) {
+        console.log("Serving " + uriPath)
+    }
 
     handle(filePath, response, ignoreErrors, enhancedSecurity, renderMarkdown)
 })
@@ -107,5 +84,5 @@ server.listen(port)
 
 console.log(chalk`
     Using working directory ${root}.
-    {magenta {bold Server running at http://localhost:${port}/ ${emote}}}
+    {magenta {bold Server running at http://localhost:${port}/ ${emojify(":star:")}}}
 `)
