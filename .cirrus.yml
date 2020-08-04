@@ -5,4 +5,4 @@ Lint_task:
     folder: node_modules
     populate_script: yarn install
     fingerprint_script: cat yarn.lock
-  run_eslint_script: yarn test
+  eslint_script: yarn test

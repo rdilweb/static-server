@@ -1,10 +1,6 @@
 import { lookup } from "mime-types"
 import { join, extname } from "path"
 import { stat as _stat, createReadStream, readFile } from "fs"
-/* eslint-disable */
-// we need this for IDEs to enable intellisense for class members
-import http from "http"
-/* eslint-enable */
 import chalk from "chalk"
 import getHeaders from "./headers"
 import markdown from "./markdownRendering"
@@ -13,15 +9,13 @@ import markdown from "./markdownRendering"
  * Handle general request.
  *
  * @param {string} filePath The path requested.
- * @param {http.ServerResponse} response The response object.
- * @param {boolean} ignoreErrors
+ * @param {ServerResponse} response The response object.
  * @param {boolean} enhancedSecurity Should enhanced security be enabled?
  * @param {boolean} renderMarkdown Should Markdown be rendered with HTML?
  */
 export default function handle(
     filePath,
     response,
-    ignoreErrors,
     enhancedSecurity,
     renderMarkdown
 ) {
@@ -29,7 +23,7 @@ export default function handle(
         // try to look up file
         _stat(filePath, (err, stat) => {
             if (err) {
-                response.statusCode = err.code == "ENOENT" ? 404 : 500
+                response.statusCode = err.code === "ENOENT" ? 404 : 500
                 response.end()
             } else if (stat.isDirectory()) {
                 // if the requested file is a directory, try
@@ -37,7 +31,6 @@ export default function handle(
                 handle(
                     join(filePath, "index.html"),
                     response,
-                    ignoreErrors,
                     enhancedSecurity,
                     renderMarkdown
                 )
@@ -58,12 +51,9 @@ export default function handle(
         })
     } catch (e) {
         // server errors will be sent here
-        if (!ignoreErrors) {
-            console.log(chalk`
+        console.log(chalk`
 {bgGray Internal Server Error: ${e}}
-`
-            )
-        }
+`)
     }
 }
 
@@ -71,10 +61,10 @@ export default function handle(
  * Handle Markdown request.
  * This will be called by the handle function,
  * with all needed context.
- * 
+ *
  * @see handle
- * 
- * @param {http.ServerResponse} response
+ *
+ * @param {ServerResponse} response
  * @param {boolean} enhancedSecurity
  * @param {string} filePath
  */
@@ -90,10 +80,10 @@ let handleMarkdown = (response, enhancedSecurity, filePath) => {
  * Handle a request for a real, existing file.
  * This will be called by the handle function,
  * with all the needed context.
- * 
+ *
  * @see handle
- * 
- * @param {http.ServerResponse} response
+ *
+ * @param {ServerResponse} response
  * @param {string} fileExtension
  * @param {boolean} enhancedSecurity
  * @param {string} filePath

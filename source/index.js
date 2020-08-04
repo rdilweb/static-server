@@ -19,11 +19,6 @@ let root = process.cwd()
 let logRequests = true
 
 /**
- * If errors should be ignored.
- */
-let ignoreErrors = false
-
-/**
  * If enhanced security headers should be set.
  */
 let enhancedSecurity = false
@@ -36,12 +31,14 @@ let renderMarkdown = true
 program.name("static-server-rdil")
 
 program
-  .option("--port <number>", "the port to use", 3000)
-  .option("--root <string>", "the root path of the file tree to serve")
-  .option("--enhanced-security", "if enhanced security should be used")
-  .option("--ignore-errors", "if file not found errors should be ignored")
-  .option("--no-request-logging", "if requests to specific resources should be silenced")
-  .option("--no-render-markdown", "don't render markdown files as HTML")
+    .option("--port <number>", "the port to use", 3000)
+    .option("--root <string>", "the root path of the file tree to serve")
+    .option("--enhanced-security", "if enhanced security should be used")
+    .option(
+        "--no-request-logging",
+        "if requests to specific resources should be silenced"
+    )
+    .option("--no-render-markdown", "don't render markdown files as HTML")
 
 program.parse(process.argv)
 
@@ -62,9 +59,6 @@ if (program.enhancedSecurity) {
 if (program.noRequestLogging) {
     logRequests = false
 }
-if (program.ignoreErrors) {
-    ignoreErrors = true
-}
 
 /**
  * The server object.
@@ -77,12 +71,14 @@ let server = createServer((request, response) => {
         console.log("Serving " + uriPath)
     }
 
-    handle(filePath, response, ignoreErrors, enhancedSecurity, renderMarkdown)
+    handle(filePath, response, enhancedSecurity, renderMarkdown)
 })
 
 server.listen(port)
 
 console.log(chalk`
     Using working directory ${root}.
-    {magenta {bold Server running at http://localhost:${port}/ ${emojify(":star:")}}}
+    {magenta {bold Server running at http://localhost:${port}/ ${emojify(
+    ":star:"
+)}}}
 `)

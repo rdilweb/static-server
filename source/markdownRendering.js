@@ -1,7 +1,7 @@
 import Showdown from "showdown"
 import { Readable } from "stream"
 
-let render = htmlBody => `\
+let render = (htmlBody) => `\
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,7 +9,7 @@ let render = htmlBody => `\
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <style>
             body {
-                font-family: Roboto;
+                font-family: Roboto, sans-serif;
                 margin: 0;
                 display: flex;
                 justify-content: center;
@@ -34,13 +34,13 @@ let showdown = new Showdown.Converter({
     strikethrough: true,
     tasklists: true,
     openLinksInNewWindow: true,
-    ghCompatibleHeaderId: true
+    ghCompatibleHeaderId: true,
 })
 
 /**
  * Create a fake stream for the server with the rendered markdown.
  */
-export default markdown => {
+export default (markdown) => {
     let readable = new Readable()
 
     readable.push(render(showdown.makeHtml(markdown.toString())))
