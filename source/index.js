@@ -4,7 +4,6 @@ import { join } from "path"
 import { createServer } from "http"
 import { parse } from "url"
 import chalk from "chalk"
-import { emojify } from "node-emoji"
 import handle from "./serverHandling"
 import { program } from "commander"
 
@@ -78,7 +77,5 @@ server.listen(port)
 
 console.log(chalk`
     Using working directory ${root}.
-    {magenta {bold Server running at http://localhost:${port}/ ${emojify(
-    ":star:"
-)}}}
+    {magenta {bold Server running at http://localhost:${port}/ ⭐}}
 `)
