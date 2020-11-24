@@ -30,7 +30,7 @@ let renderMarkdown = true
 program.name("static-server-rdil")
 
 program
-    .option("--port <number>", "the port to use", 3000)
+    .option("--port <number>", "the port to use", "3000")
     .option("--root <string>", "the root path of the file tree to serve")
     .option("--enhanced-security", "if enhanced security should be used")
     .option(
@@ -44,7 +44,7 @@ program.parse(process.argv)
 /**
  * The port that the server will run on.
  */
-let port = program.port
+const port: number = Number.parseInt(program.port)
 
 if (program.root) {
     root = program.root
@@ -62,9 +62,9 @@ if (program.noRequestLogging) {
 /**
  * The server object.
  */
-let server = createServer((request, response) => {
-    let uriPath = parse(request.url).pathname
-    let filePath = join(root, unescape(uriPath))
+const server = createServer((request, response) => {
+    const uriPath = parse(request.url as string).pathname as string
+    const filePath = join(root, unescape(uriPath))
 
     if (logRequests) {
         console.log("Serving " + uriPath)

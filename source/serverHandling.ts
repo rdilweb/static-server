@@ -4,21 +4,17 @@ import { stat as _stat, createReadStream, readFile } from "fs"
 import chalk from "chalk"
 import getHeaders from "./headers"
 import markdown from "./markdownRendering"
+import { ServerResponse } from "http"
 
 /**
- * Handle general request.
- *
- * @param {string} filePath The path requested.
- * @param {ServerResponse} response The response object.
- * @param {boolean} enhancedSecurity Should enhanced security be enabled?
- * @param {boolean} renderMarkdown Should Markdown be rendered with HTML?
+ * Handle a request.
  */
-export default function handle(
-    filePath,
-    response,
-    enhancedSecurity,
-    renderMarkdown
-) {
+const handle = (
+    filePath: string,
+    response: ServerResponse,
+    enhancedSecurity: boolean,
+    renderMarkdown: boolean
+): void => {
     try {
         // try to look up file
         _stat(filePath, (err, stat) => {
@@ -36,7 +32,7 @@ export default function handle(
                 )
             } else {
                 // actual file
-                let fileExtension = extname(filePath)
+                const fileExtension = extname(filePath)
                 if (fileExtension !== ".md" || !renderMarkdown) {
                     handleRealFile(
                         response,
@@ -61,17 +57,19 @@ export default function handle(
  * Handle Markdown request.
  * This will be called by the handle function,
  * with all needed context.
- *
- * @see handle
- *
- * @param {ServerResponse} response
- * @param {boolean} enhancedSecurity
- * @param {string} filePath
  */
-let handleMarkdown = (response, enhancedSecurity, filePath) => {
+const handleMarkdown = (
+    response: ServerResponse,
+    enhancedSecurity: boolean,
+    filePath: string
+) => {
     response.writeHead(200, getHeaders(enhancedSecurity, "text/html"))
+
     readFile(filePath, (err, data) => {
-        if (err) throw err
+        if (err) {
+            throw err
+        }
+
         markdown(data).pipe(response)
     })
 }
@@ -80,16 +78,25 @@ let handleMarkdown = (response, enhancedSecurity, filePath) => {
  * Handle a request for a real, existing file.
  * This will be called by the handle function,
  * with all the needed context.
- *
- * @see handle
- *
- * @param {ServerResponse} response
- * @param {string} fileExtension
- * @param {boolean} enhancedSecurity
- * @param {string} filePath
  */
-let handleRealFile = (response, fileExtension, enhancedSecurity, filePath) => {
+const handleRealFile = (
+    response: ServerResponse,
+    fileExtension: string,
+    enhancedSecurity: boolean,
+    filePath: string
+) => {
     let mimetype = lookup(fileExtension)
+
+    if (mimetype === false) {
+        console.log(
+            chalk`{yellow Unable to find mime-type for file of type {reset ${fileExtension}}!}`
+        )
+        mimetype = "application/octet-stream"
+    }
+
     response.writeHead(200, getHeaders(enhancedSecurity, mimetype))
+
     createReadStream(filePath).pipe(response)
 }
+
+export default handle

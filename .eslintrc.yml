@@ -1,16 +1,25 @@
 plugins:
   - prettier
+  - "@typescript-eslint"
+
+parser: "@typescript-eslint/parser"
+
 env:
   node: true
   es6: true
+
 extends:
   - "eslint:recommended"
+  - "plugin:@typescript-eslint/recommended"
+
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
+
 parserOptions:
   ecmaVersion: 2020
   sourceType: module
+
 rules: {
   "prettier/prettier": "error"
 }

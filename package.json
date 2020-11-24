@@ -21,30 +21,30 @@
         "showdown": "^1.9.1"
     },
     "files": [
-        "src"
+        "build"
     ],
     "license": "MIT",
     "author": "Reece Dunham <me@rdil.rocks>",
     "bugs": {
         "url": "https://github.com/rdilweb/static-server/issues"
     },
-    "main": "src/index.js",
+    "main": "build/source/index.js",
     "scripts": {
-        "prettier": "prettier --write **/**.{js,json}",
-        "build": "babel source -d src",
-        "dev": "yarn build && node src/index.js",
-        "test": "eslint source/*.js"
+        "prettier": "prettier --write **/**.{js,ts,json}",
+        "build": "tsc",
+        "dev": "yarn build && node build/source/index.js",
+        "test": "eslint source/*.ts"
     },
     "devDependencies": {
-        "@babel/cli": "^7.12.7",
-        "@babel/core": "^7.12.7",
-        "@babel/preset-env": "^7.12.7",
         "@types/mime-types": "^2.1.0",
         "@types/node": "^14.14.9",
         "@types/showdown": "^1.9.3",
+        "@typescript-eslint/eslint-plugin": "^4.8.2",
+        "@typescript-eslint/parser": "^4.8.2",
         "eslint": "^7.14.0",
         "eslint-plugin-prettier": "^3.1.4",
-        "prettier": "^2.2.0"
+        "prettier": "^2.2.0",
+        "typescript": "^4.1.2"
     },
     "prettier": {
         "semi": false,

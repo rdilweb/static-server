@@ -1,7 +1,7 @@
 import Showdown from "showdown"
-import { Readable } from "stream"
+import { Readable, Stream } from "stream"
 
-let render = (htmlBody) => `\
+const render = (htmlBody: string): string => `\
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -30,7 +30,7 @@ let render = (htmlBody) => `\
     </body>
 </html>`
 
-let showdown = new Showdown.Converter({
+const showdown = new Showdown.Converter({
     strikethrough: true,
     tasklists: true,
     openLinksInNewWindow: true,
@@ -40,11 +40,12 @@ let showdown = new Showdown.Converter({
 /**
  * Create a fake stream for the server with the rendered markdown.
  */
-export default (markdown) => {
-    let readable = new Readable()
+export default (markdown: Buffer): Stream => {
+    const readable = new Readable()
 
     readable.push(render(showdown.makeHtml(markdown.toString())))
 
     readable.push(null) // end-of-stream
+
     return readable
 }
