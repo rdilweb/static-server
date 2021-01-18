@@ -16,7 +16,7 @@
     ],
     "dependencies": {
         "chalk": "^4.1.0",
-        "commander": "^6.2.1",
+        "commander": "^7.0.0",
         "mime-types": "^2.1.28",
         "showdown": "^1.9.1"
     },
