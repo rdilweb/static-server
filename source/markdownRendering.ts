@@ -6,10 +6,9 @@ const render = (htmlBody: string): string => `\
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <style>
             body {
-                font-family: Roboto, sans-serif;
+                font-family: -apple-system, BlinkMacSystemFont, Roboto, Segoe UI, sans-serif;
                 margin: 0;
                 display: flex;
                 justify-content: center;
