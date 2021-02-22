@@ -17,7 +17,7 @@
     "dependencies": {
         "chalk": "^4.1.0",
         "commander": "^6.2.1",
-        "mime-types": "^2.1.28",
+        "mime-types": "^2.1.29",
         "showdown": "^1.9.1"
     },
     "files": [
