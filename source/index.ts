@@ -39,23 +39,26 @@ program
     )
     .option("--no-render-markdown", "don't render markdown files as HTML")
 
-program.parse(process.argv)
+const opts = program.parse(process.argv).opts()
 
 /**
  * The port that the server will run on.
  */
-const port: number = Number.parseInt(program.port)
+const port: number = Number.parseInt(opts.port)
 
-if (program.root) {
-    root = program.root
+if (opts.root) {
+    root = opts.root
 }
-if (program.noRenderMarkdown) {
+
+if (opts.noRenderMarkdown) {
     renderMarkdown = false
 }
-if (program.enhancedSecurity) {
+
+if (opts.enhancedSecurity) {
     enhancedSecurity = true
 }
-if (program.noRequestLogging) {
+
+if (opts.noRequestLogging) {
     logRequests = false
 }
 

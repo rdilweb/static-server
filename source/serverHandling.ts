@@ -22,7 +22,12 @@ const handle = (
                 // last ditch attempt to make sure this isn't just a case where its something like about-us.html
                 // being used like /about-us in the browser, which is fairly common now
                 if (existsSync(`${filePath}.html`)) {
-                    return handleRealFile(response, "html", enhancedSecurity, `${filePath}.html`)
+                    return handleRealFile(
+                        response,
+                        "html",
+                        enhancedSecurity,
+                        `${filePath}.html`
+                    )
                 }
 
                 response.statusCode = err.code === "ENOENT" ? 404 : 500
