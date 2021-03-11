@@ -1,6 +1,6 @@
 import { lookup } from "mime-types"
 import { join, extname } from "path"
-import { stat as _stat, createReadStream, readFile } from "fs"
+import { stat as _stat, createReadStream, readFile, existsSync } from "fs"
 import chalk from "chalk"
 import getHeaders from "./headers"
 import markdown from "./markdownRendering"
@@ -19,6 +19,12 @@ const handle = (
         // try to look up file
         _stat(filePath, (err, stat) => {
             if (err) {
+                // last ditch attempt to make sure this isn't just a case where its something like about-us.html
+                // being used like /about-us in the browser, which is fairly common now
+                if (existsSync(`${filePath}.html`)) {
+                    return handleRealFile(response, "html", enhancedSecurity, `${filePath}.html`)
+                }
+
                 response.statusCode = err.code === "ENOENT" ? 404 : 500
                 response.end()
             } else if (stat.isDirectory()) {
@@ -33,16 +39,17 @@ const handle = (
             } else {
                 // actual file
                 const fileExtension = extname(filePath)
+
                 if (fileExtension !== ".md" || !renderMarkdown) {
-                    handleRealFile(
+                    return handleRealFile(
                         response,
                         fileExtension,
                         enhancedSecurity,
                         filePath
                     )
-                } else {
-                    handleMarkdown(response, enhancedSecurity, filePath)
                 }
+
+                handleMarkdown(response, enhancedSecurity, filePath)
             }
         })
     } catch (e) {
@@ -87,7 +94,7 @@ const handleRealFile = (
 ) => {
     let mimetype = lookup(fileExtension)
 
-    if (mimetype === false) {
+    if (!mimetype) {
         console.log(
             chalk`{yellow Unable to find mime-type for file of type {reset ${fileExtension}}!}`
         )

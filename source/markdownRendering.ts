@@ -13,7 +13,7 @@ const render = (htmlBody: string): string => `\
                 display: flex;
                 justify-content: center;
             }
-            #mn {
+            .mn {
                 width: 90%;
                 margin-top: 2%;
             }
@@ -23,7 +23,7 @@ const render = (htmlBody: string): string => `\
         </style>
     </head>
     <body>
-        <div id="mn">
+        <div class="mn">
             ${htmlBody}
         </div>
     </body>
