@@ -30,17 +30,35 @@ const handle = (
                     )
                 }
 
+                if (existsSync(`${filePath}.md`)) {
+                    return handleMarkdown(
+                        response,
+                        enhancedSecurity,
+                        `${filePath}.md`
+                    )
+                }
+
                 response.statusCode = err.code === "ENOENT" ? 404 : 500
                 response.end()
             } else if (stat.isDirectory()) {
                 // if the requested file is a directory, try
                 // to get the 'index.html' from it
-                handle(
-                    join(filePath, "index.html"),
-                    response,
-                    enhancedSecurity,
-                    renderMarkdown
-                )
+                if (existsSync(join(filePath, "index.html"))) {
+                    return handle(
+                        join(filePath, "index.html"),
+                        response,
+                        enhancedSecurity,
+                        renderMarkdown
+                    )
+                }
+
+                if (existsSync(join(filePath, "README.md"))) {
+                    return handleMarkdown(
+                        response,
+                        enhancedSecurity,
+                        join(filePath, "README.md")
+                    )
+                }
             } else {
                 // actual file
                 const fileExtension = extname(filePath)
@@ -74,7 +92,7 @@ const handleMarkdown = (
     response: ServerResponse,
     enhancedSecurity: boolean,
     filePath: string
-) => {
+): void => {
     response.writeHead(200, getHeaders(enhancedSecurity, "text/html"))
 
     readFile(filePath, (err, data) => {
@@ -96,7 +114,7 @@ const handleRealFile = (
     fileExtension: string,
     enhancedSecurity: boolean,
     filePath: string
-) => {
+): void => {
     let mimetype = lookup(fileExtension)
 
     if (!mimetype) {
